@@ -48,6 +48,15 @@ public class UserController {
         return ResponseEntity.ok(this.userService.updateUser(id, updateUserRequest));
     }
 
+    @PutMapping("updateUserByMail/{mail}")
+    public ResponseEntity<UserDTO> updateUserByMail(
+            @PathVariable String mail,
+            @RequestBody UpdateUserRequest updateUserRequest){
+
+        return  ResponseEntity.ok(this.userService.updateUserByMail(mail, updateUserRequest));
+
+    }
+
 //    @PatchMapping("/{id}")
 //    public ResponseEntity<Void> deactiveUser (@PathVariable("id") Long id){
 //        this.userService.deactiveUser(id);
@@ -58,6 +67,12 @@ public class UserController {
     public ResponseEntity<Void> deleteUser (@PathVariable("id") Long id){
         this.userService.deleteUser(id);
         return  ResponseEntity.ok().build();
+    }
+
+    @DeleteMapping("/deleteUserByMail/{mail}")
+    public ResponseEntity<Void> deleteUserByMail(@PathVariable String mail){
+        this.userService.deleteUserByMail(mail);
+        return ResponseEntity.ok().build();
     }
 
 
