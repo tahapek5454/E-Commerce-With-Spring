@@ -64,12 +64,26 @@ public class UserService {
 
     }
 
-    public void deactiveUser(Long id) {
+    public UserDTO updateUserByMail(String mail, UpdateUserRequest updateUserRequest) {
+        User user = findUserByMail(mail);
+
+        user.setFirstName(updateUserRequest.getFirstName());
+        user.setLastName(updateUserRequest.getLastName());
+        user.setMiddleName(updateUserRequest.getMiddleName());
+
+        return this.userDTOConverter.convert(this.userRepository.save(user));
+
+    }
+
+    public void deleteUserByMail(String mail ){
+        User user = findUserByMail(mail);
+        deleteUser(user.getId());
     }
 
     public void deleteUser(Long id) {
         this.userRepository.deleteById(id);
     }
+
 
 
 
@@ -82,6 +96,7 @@ public class UserService {
         return this.userRepository.findByMail(mail)
                 .orElseThrow(()-> new UserNotFoundException("User Couldn't be found by following mail : "+ mail));
     }
+
 
 
 }
