@@ -23,5 +23,7 @@ public class User {
     String lastName;
     @NonNull
     String middleName;
+    @NonNull
+    Boolean isActive;
 
 }

@@ -1,5 +1,6 @@
 package com.ecommerce.secondhand.user.service;
 
+import com.ecommerce.secondhand.user.exception.UserIsNotActiveException;
 import com.ecommerce.secondhand.user.exception.UserNotFoundException;
 import com.ecommerce.secondhand.user.model.dto.CreateUserRequest;
 import com.ecommerce.secondhand.user.model.dto.UpdateUserRequest;
@@ -7,6 +8,8 @@ import com.ecommerce.secondhand.user.model.dto.UserDTO;
 import com.ecommerce.secondhand.user.model.dto.UserDTOConverter;
 import com.ecommerce.secondhand.user.model.entity.User;
 import com.ecommerce.secondhand.user.repository.UserRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,6 +17,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class UserService {
+    private static final Logger logger = LoggerFactory.getLogger(UserService.class);
     private final UserRepository userRepository;
     private final UserDTOConverter userDTOConverter;
 
@@ -24,9 +28,8 @@ public class UserService {
     }
 
     public List<UserDTO> getAllUsers() {
-        return userRepository.findAll()
-                .stream()
-                .map(this.userDTOConverter::convert).collect(Collectors.toList());
+        return this.userDTOConverter.convertList(userRepository.findAll());
+
     }
 
     public UserDTO getById(Long id) {
@@ -45,7 +48,8 @@ public class UserService {
                 createUserRequest.getMail(),
                 createUserRequest.getFirstName(),
                 createUserRequest.getLastName(),
-                createUserRequest.getMiddleName()
+                createUserRequest.getMiddleName(),
+                true
 
         );
 
@@ -55,6 +59,11 @@ public class UserService {
 
     public UserDTO updateUser(Long id, UpdateUserRequest updateUserRequest) {
         User user = findUserById(id);
+
+        if(!user.getIsActive()){
+            logger.warn(String.format("The user wanted update is not active, user mail: %s ", user.getMail()));
+            throw new UserIsNotActiveException(UserIsNotActiveException.message + "user mail: "+ user.getMail());
+        }
 
         user.setFirstName(updateUserRequest.getFirstName());
         user.setLastName(updateUserRequest.getLastName());
@@ -66,6 +75,11 @@ public class UserService {
 
     public UserDTO updateUserByMail(String mail, UpdateUserRequest updateUserRequest) {
         User user = findUserByMail(mail);
+
+        if(!user.getIsActive()){
+            logger.warn(String.format("The user wanted update is not active, user mail: %s ", mail));
+            throw new UserIsNotActiveException(UserIsNotActiveException.message + "user mail: "+ mail);
+        }
 
         user.setFirstName(updateUserRequest.getFirstName());
         user.setLastName(updateUserRequest.getLastName());
@@ -81,11 +95,31 @@ public class UserService {
     }
 
     public void deleteUser(Long id) {
-        this.userRepository.deleteById(id);
+        if(doesUserExists(id)) {
+            this.userRepository.deleteById(id);
+        }else{
+            throw new UserNotFoundException("User Couldn't be found by following id : "+ id);
+        }
+
     }
 
 
+    public void deactivateUser(Long id) {
+        changeActivateUserById(id, false);
+    }
 
+    public void activeUser(Long id) {
+
+        changeActivateUserById(id, true);
+    }
+
+    private void changeActivateUserById(Long id, Boolean status){
+        User user = findUserById(id);
+
+        user.setIsActive(status);
+        this.userRepository.save(user);
+
+    }
 
     private User findUserById(Long id){
         return this.userRepository.findById(id)
@@ -95,6 +129,10 @@ public class UserService {
     private User findUserByMail(String mail){
         return this.userRepository.findByMail(mail)
                 .orElseThrow(()-> new UserNotFoundException("User Couldn't be found by following mail : "+ mail));
+    }
+
+    private boolean doesUserExists(Long id){
+        return this.userRepository.existsById(id);
     }
 
 
