@@ -49,7 +49,7 @@ public class UserService {
                 createUserRequest.getFirstName(),
                 createUserRequest.getLastName(),
                 createUserRequest.getMiddleName(),
-                true
+                false
 
         );
 
@@ -91,15 +91,13 @@ public class UserService {
 
     public void deleteUserByMail(String mail ){
         User user = findUserByMail(mail);
-        deleteUser(user.getId());
+        this.userRepository.deleteById(user.getId());
     }
 
     public void deleteUser(Long id) {
-        if(doesUserExists(id)) {
-            this.userRepository.deleteById(id);
-        }else{
-            throw new UserNotFoundException("User Couldn't be found by following id : "+ id);
-        }
+        findUserById(id);
+
+        this.userRepository.deleteById(id);
 
     }
 
@@ -130,11 +128,5 @@ public class UserService {
         return this.userRepository.findByMail(mail)
                 .orElseThrow(()-> new UserNotFoundException("User Couldn't be found by following mail : "+ mail));
     }
-
-    private boolean doesUserExists(Long id){
-        return this.userRepository.existsById(id);
-    }
-
-
 
 }
