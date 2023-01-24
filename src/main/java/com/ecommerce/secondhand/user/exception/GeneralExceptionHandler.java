@@ -40,8 +40,13 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
+    @ExceptionHandler(UserDetailsNotFoundException.class)
+    public ResponseEntity<?> userDetailsNotFoundExceptionHandler(UserDetailsNotFoundException exception)  {
+        return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
+    }
+
     @ExceptionHandler(UserIsNotActiveException.class)
-    public ResponseEntity<?> customerNotFoundExceptionHandler(UserIsNotActiveException exception)  {
+    public ResponseEntity<?> userIsNotActiveExceptionHandler(UserIsNotActiveException exception)  {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 

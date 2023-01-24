@@ -9,22 +9,40 @@ import java.util.stream.Collectors;
 @Component
 //Neden Component Dedik
 public class UserDTOConverter {
+
+    private final UserDetailsDTOConverter userDetailsDTOConverter;
+
+    public UserDTOConverter(UserDetailsDTOConverter userDetailsDTOConverter) {
+        this.userDetailsDTOConverter = userDetailsDTOConverter;
+    }
+
     public  UserDTO convert(User from){
+
         return new UserDTO(
                 from.getMail(),
                 from.getFirstName(),
                 from.getLastName(),
-                from.getMiddleName()
+                from.getMiddleName(),
+                userDetailsDTOConverter.convert(from.getUserDetailsList())
         );
+
+
     }
 
     public List<UserDTO> convertList(List<User> fromList){
-        return fromList.stream().map(from ->
-                new UserDTO(
-                        from.getMail(),
-                        from.getFirstName(),
-                        from.getLastName(),
-                        from.getMiddleName()
-                )).collect(Collectors.toList());
+        return fromList.stream().map(from ->{
+
+                    return new UserDTO(
+                            from.getMail(),
+                            from.getFirstName(),
+                            from.getLastName(),
+                            from.getMiddleName(),
+                            userDetailsDTOConverter.convert(from.getUserDetailsList())
+                    );
+
+
+
+                }
+               ).collect(Collectors.toList());
     }
 }

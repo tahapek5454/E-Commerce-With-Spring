@@ -119,7 +119,7 @@ public class UserService {
 
     }
 
-    private User findUserById(Long id){
+    protected User findUserById(Long id){
         return this.userRepository.findById(id)
                 .orElseThrow(()-> new UserNotFoundException("User Couldn't be found by following id : "+ id));
     }
