@@ -3,6 +3,9 @@ package com.ecommerce.secondhand.user.model.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -27,4 +30,19 @@ public class User {
     @NonNull
     Boolean isActive;
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    List<UserDetails> userDetailsList = new ArrayList<UserDetails>();
+
+
+    //for testing
+
+
+    public User(Long id, @NonNull String mail, @NonNull String firstName, @NonNull String lastName, @NonNull String middleName, @NonNull Boolean isActive) {
+        this.id = id;
+        this.mail = mail;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.middleName = middleName;
+        this.isActive = isActive;
+    }
 }
