@@ -11,6 +11,7 @@ import java.util.stream.IntStream;
 public class TestSupport {
 
     public static Long userId = 100L;
+    public static Long userDetailsId = 100L;
     public static List<User> generateUsers(){
         return IntStream.range(0, 5).mapToObj(i -> new User(
                 (long) i,
@@ -56,4 +57,9 @@ public class TestSupport {
                 "middleName"+userId
         );
     }
+
+
+
+
+
 }
