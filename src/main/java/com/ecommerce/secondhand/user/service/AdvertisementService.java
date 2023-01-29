@@ -16,10 +16,12 @@ import java.util.List;
 public class AdvertisementService {
     private final AdvertisementElasticSearchRepository advertisementElasticSearchRepository;
     private final AdvertisementDTOConverter advertisementDTOConverter;
+    private final UserService userService;
 
-    public AdvertisementService(AdvertisementElasticSearchRepository advertisementElasticSearchRepository, AdvertisementDTOConverter advertisementDTOConverter) {
+    public AdvertisementService(AdvertisementElasticSearchRepository advertisementElasticSearchRepository, AdvertisementDTOConverter advertisementDTOConverter, UserService userService) {
         this.advertisementElasticSearchRepository = advertisementElasticSearchRepository;
         this.advertisementDTOConverter = advertisementDTOConverter;
+        this.userService = userService;
     }
 
     public List<AdvertisementDTO> getAllAdvertisementBySearch(String search){
@@ -27,12 +29,15 @@ public class AdvertisementService {
                 .findByTitleLike(search));
     }
     public AdvertisementDTO addAdvertisement(CreateAdvertisementRequest createAdvertisementRequest){
-        Advertisement addedAdvertisement = new Advertisement(
+        this.userService.findUserById(createAdvertisementRequest.getUserId());
+
+        Advertisement addedAdvertisement =
+            new Advertisement(
                 createAdvertisementRequest.getTitle(),
                 createAdvertisementRequest.getDescription(),
-                createAdvertisementRequest.getPrice()
-        );
-        return advertisementDTOConverter.convert(advertisementElasticSearchRepository.save(addedAdvertisement));
+                createAdvertisementRequest.getPrice(),
+                createAdvertisementRequest.getUserId());
+            return advertisementDTOConverter.convert(advertisementElasticSearchRepository.save(addedAdvertisement));
     }
 
     public AdvertisementDTO updateAdvertisementById(String id,UpdateAdvertisementRequest updateAdvertisementRequest){

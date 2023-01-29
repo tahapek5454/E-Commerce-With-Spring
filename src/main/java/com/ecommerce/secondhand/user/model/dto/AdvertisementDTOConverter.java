@@ -15,6 +15,7 @@ public class AdvertisementDTOConverter {
                 from.getTitle(),
                 from.getDescription(),
                 from.getPrice(),
+                from.getUserId(),
                 from.getCreationDate(),
                 from.getLastModifiedDate()
         );
@@ -26,6 +27,7 @@ public class AdvertisementDTOConverter {
                         from.getTitle(),
                         from.getDescription(),
                         from.getPrice(),
+                        from.getUserId(),
                         from.getCreationDate(),
                         from.getLastModifiedDate()
                 )).collect(Collectors.toList());
