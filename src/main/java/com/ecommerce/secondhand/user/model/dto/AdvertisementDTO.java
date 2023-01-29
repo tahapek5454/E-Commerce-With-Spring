@@ -17,6 +17,7 @@ public class AdvertisementDTO {
     String title;
     String description;
     Double price;
+    Long userId;
     Date creationDate;
     Date lastModifiedDate;
 }

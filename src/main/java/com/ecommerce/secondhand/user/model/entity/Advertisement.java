@@ -27,6 +27,9 @@ public class Advertisement {
     String description;
     @NonNull
     Double price;
+
+    @NonNull
+    Long userId;
     @Field(type = FieldType.Date, format = DateFormat.basic_date_time)
     Date creationDate = Calendar.getInstance().getTime();
     @Field(type = FieldType.Date, format = DateFormat.basic_date_time)

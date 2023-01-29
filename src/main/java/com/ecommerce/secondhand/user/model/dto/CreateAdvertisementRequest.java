@@ -13,4 +13,5 @@ public class CreateAdvertisementRequest {
     String title;
     String description;
     Double price;
+    Long userId;
 }
