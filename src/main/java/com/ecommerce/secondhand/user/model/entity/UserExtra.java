@@ -10,8 +10,8 @@ import lombok.*;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "userdetails")
-public class UserDetails {
+@Table(name = "user_details")
+public class UserExtra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     Long id;

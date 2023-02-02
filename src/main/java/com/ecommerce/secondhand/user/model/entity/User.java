@@ -31,7 +31,7 @@ public class User {
     Boolean isActive;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    List<UserDetails> userDetailsList = new ArrayList<UserDetails>();
+    List<UserExtra> userExtraList = new ArrayList<UserExtra>();
 
 
     //for testing
