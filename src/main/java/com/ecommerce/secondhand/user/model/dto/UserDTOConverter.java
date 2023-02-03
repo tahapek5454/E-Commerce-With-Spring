@@ -23,6 +23,7 @@ public class UserDTOConverter {
                 from.getFirstName(),
                 from.getLastName(),
                 from.getMiddleName(),
+                from.getPassword(),
                 userExtraDTOConverter.convert(from.getUserExtraList())
         );
 
@@ -37,6 +38,7 @@ public class UserDTOConverter {
                             from.getFirstName(),
                             from.getLastName(),
                             from.getMiddleName(),
+                            from.getPassword(),
                             userExtraDTOConverter.convert(from.getUserExtraList())
                     );
 

@@ -25,14 +25,16 @@ public class TestSupport {
 
     public static List<UserDTO> generateUserDTOList(List<User> userList){
 
-        return userList.stream()
-                .map(from -> new UserDTO(
-                        from.getMail(),
-                        from.getFirstName(),
-                        from.getLastName(),
-                        from.getMiddleName()
-                )).collect(Collectors.toList());
-
+    return userList.stream()
+        .map(
+            from ->
+                new UserDTO(
+                    from.getMail(),
+                    from.getFirstName(),
+                    from.getLastName(),
+                    from.getMiddleName(),
+                    from.getPassword()))
+        .collect(Collectors.toList());
     }
 
     public static User generateUser(String mail){
@@ -54,7 +56,8 @@ public class TestSupport {
                 userId+mail,
                 "firstName"+userId,
                 "lastName"+userId,
-                "middleName"+userId
+                "middleName"+userId,
+                "123"
         );
     }
 

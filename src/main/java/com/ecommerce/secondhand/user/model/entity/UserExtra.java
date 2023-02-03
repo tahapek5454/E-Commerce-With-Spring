@@ -10,7 +10,7 @@ import lombok.*;
 @RequiredArgsConstructor
 @EqualsAndHashCode
 @Entity
-@Table(name = "user_details")
+@Table(name = "user_extra")
 public class UserExtra {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
