@@ -99,7 +99,8 @@ class UserServiceTest extends TestSupport {
                 mail,
                 "firstName",
                 "lastName",
-                ""
+                "",
+                "123"
         );
         Mockito.when(userRepository.findById(userId)).thenReturn(Optional.of(user));
         Mockito.when(userDTOConverter.convert(user)).thenReturn(userDTO);
@@ -134,7 +135,8 @@ class UserServiceTest extends TestSupport {
                 mail,
                 "firstName",
                 "lastName",
-                ""
+                "",
+                "123"
         );
 
         User user = new User(
@@ -142,7 +144,8 @@ class UserServiceTest extends TestSupport {
                 "firstName",
                 "lastName",
                 "",
-                false
+                false,
+                "123"
         );
 
         User savedUser = new User(
@@ -158,7 +161,8 @@ class UserServiceTest extends TestSupport {
                 mail,
                 "firstName",
                 "lastName",
-                ""
+                "",
+                "123"
         );
 
 
@@ -188,7 +192,8 @@ class UserServiceTest extends TestSupport {
                 "firstName",
                 "lastName",
                 "middleName",
-                true
+                true,
+                "123"
         );
 
         User savedUser = new User(
@@ -204,7 +209,8 @@ class UserServiceTest extends TestSupport {
                 mail,
                 "firstName2",
                 "lastName2",
-                "middleName2"
+                "middleName2",
+                "123"
         );
 
 
@@ -255,7 +261,8 @@ class UserServiceTest extends TestSupport {
                 "firstName",
                 "lastName",
                 "middleName",
-                false
+                false,
+                "123"
         );
 
         Mockito.when(userRepository.findByMail(mail)).thenReturn(Optional.of(user));
@@ -303,7 +310,8 @@ class UserServiceTest extends TestSupport {
                 mail,
                 "firstName2",
                 "lastName2",
-                "middleName2"
+                "middleName2",
+                "123"
         );
 
 

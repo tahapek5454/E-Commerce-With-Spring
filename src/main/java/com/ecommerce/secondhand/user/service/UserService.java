@@ -44,14 +44,14 @@ public class UserService {
     }
 
     public UserDTO addUser(CreateUserRequest createUserRequest){
-        User user = new User(
-                createUserRequest.getMail(),
-                createUserRequest.getFirstName(),
-                createUserRequest.getLastName(),
-                createUserRequest.getMiddleName(),
-                false
-
-        );
+    User user =
+        new User(
+            createUserRequest.getMail(),
+            createUserRequest.getFirstName(),
+            createUserRequest.getLastName(),
+            createUserRequest.getMiddleName(),
+            false,
+            createUserRequest.getPassword());
 
         return this.userDTOConverter.convert(this.userRepository.save(user));
 

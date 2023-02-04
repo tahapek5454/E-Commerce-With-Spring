@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CreateUserDetailsRequest {
+public class CreateUserExtraRequest {
     String phoneNumber;
     String address;
     String city;

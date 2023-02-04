@@ -18,5 +18,7 @@ public class UserDTO {
     String lastName;
     @NonNull
     String middleName;
-    List<UserDetailsDTO> userDetailsDTOList;
+    @NonNull
+    String password;
+    List<UserExtraDTO> userExtraDTOList;
 }

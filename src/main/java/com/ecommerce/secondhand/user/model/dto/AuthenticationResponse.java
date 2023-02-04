@@ -9,10 +9,6 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class UpdateUserDetailsRequest {
-    String phoneNumber;
-    String address;
-    String city;
-    String country;
-    String postCode;
+public class AuthenticationResponse {
+    String token;
 }

@@ -10,10 +10,10 @@ import java.util.stream.Collectors;
 //Neden Component Dedik
 public class UserDTOConverter {
 
-    private final UserDetailsDTOConverter userDetailsDTOConverter;
+    private final UserExtraDTOConverter userExtraDTOConverter;
 
-    public UserDTOConverter(UserDetailsDTOConverter userDetailsDTOConverter) {
-        this.userDetailsDTOConverter = userDetailsDTOConverter;
+    public UserDTOConverter(UserExtraDTOConverter userExtraDTOConverter) {
+        this.userExtraDTOConverter = userExtraDTOConverter;
     }
 
     public  UserDTO convert(User from){
@@ -23,7 +23,8 @@ public class UserDTOConverter {
                 from.getFirstName(),
                 from.getLastName(),
                 from.getMiddleName(),
-                userDetailsDTOConverter.convert(from.getUserDetailsList())
+                from.getPassword(),
+                userExtraDTOConverter.convert(from.getUserExtraList())
         );
 
 
@@ -37,7 +38,8 @@ public class UserDTOConverter {
                             from.getFirstName(),
                             from.getLastName(),
                             from.getMiddleName(),
-                            userDetailsDTOConverter.convert(from.getUserDetailsList())
+                            from.getPassword(),
+                            userExtraDTOConverter.convert(from.getUserExtraList())
                     );
 
 

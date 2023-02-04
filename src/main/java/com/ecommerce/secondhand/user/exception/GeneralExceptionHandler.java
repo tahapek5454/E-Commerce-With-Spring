@@ -1,6 +1,5 @@
 package com.ecommerce.secondhand.user.exception;
 
-import lombok.NonNull;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -45,8 +44,8 @@ public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
-    @ExceptionHandler(UserDetailsNotFoundException.class)
-    public ResponseEntity<?> userDetailsNotFoundExceptionHandler(UserDetailsNotFoundException exception)  {
+    @ExceptionHandler(UserExtraNotFoundException.class)
+    public ResponseEntity<?> userExtraNotFoundExceptionHandler(UserExtraNotFoundException exception)  {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 
